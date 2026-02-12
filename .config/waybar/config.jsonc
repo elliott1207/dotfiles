@@ -1,0 +1,88 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "height": 14,
+    "spacing": 5,
+    "modules-right": [
+        "cpu",
+        "memory",
+        "battery",
+        "tray",
+        "pulseaudio/slider",
+        "clock",
+        "custom/logout"
+    ],
+    "modules-left": [
+        "image",
+        "wlr/taskbar"
+    ],
+    "modules-center": [
+        "sway/workspaces"
+    ],
+    "clock": {
+        "format": "{:%Y-%m-%d %H:%M}",
+        "tooltip": false
+    },
+    "cpu": {
+        "format": "CPU: {usage}%"
+    },
+    "memory": {
+        "format": "Mem: {}%"
+    },
+    "battery": {
+        "format": "{icon} {capacity}%",
+        "format-icons": [
+            ".",
+            "-",
+            "=",
+            "+",
+            "@"
+        ]
+    },
+    "network": {
+        "format": "{essid}"
+    },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 20,
+        "tooltip-format": "{title}",
+        "on-click": "minimize-raise",
+        "on-click-right": "minimize-raise"
+    },
+    "image": {
+        "path": "/usr/share/pixmaps/archlinux-logo.png",
+        "tooltip": false,
+        "on-click": "fuzzel",
+        "size":24
+    },
+    "pulseaudio/slider": {
+        "min": 0,
+        "max": 100,
+        "orientation": "horizontal"
+    },
+    "custom/logout": {
+        "format": " ",
+        "on-click": "wlogout",
+        "tooltip": false
+    },
+    "tray": {
+        "spacing": 5,
+        "icon-size":20
+    },
+    "niri/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "active": "",
+            "default": ""
+        }
+    },
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{icon}",
+        "format-icons": {
+            "focused": "",
+            "default": ""
+        }
+    }
+}

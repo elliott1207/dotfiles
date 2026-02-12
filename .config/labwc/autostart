@@ -1,0 +1,8 @@
+fcitx5 &
+wlr-randr --output eDP-1 --scale 1.2 --on &
+waybar &
+/opt/labwc-scripts/labwc-failed &
+swayidle -w timeout 300 "wlr-randr --output eDP-1 --scale 1.2 --off;swaylock &" resume "wlr-randr --output eDP-1 --scale 1.2 --on" before-sleep swaylock &
+/usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
+swaybg -i ~/Pictures/paper-miku.png &
+nm-applet &
