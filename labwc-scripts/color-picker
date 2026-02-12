@@ -1,0 +1,7 @@
+#!/bin/sh
+export LABWC_COLOR_PICKED=`hyprpicker`
+if [ -z $LABWC_COLOR_PICKED]; then
+	exit 0
+fi
+notify-send --icon=`echo $LABWC_COLOR_PICKED | /opt/labwc-scripts/generate-color-icon` '复制到了剪贴板' "$LABWC_COLOR_PICKED"
+printf "$LABWC_COLOR_PICKED" | wl-copy 

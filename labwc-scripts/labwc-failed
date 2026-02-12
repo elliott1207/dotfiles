@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# 检查systemd失败的服务并发送桌面通知
+
+# 获取失败的服务列表
+failed_services=$(systemctl --failed --no-legend --no-pager 2>/dev/null)
+
+# 检查是否有失败的服务
+if [ -n "$failed_services" ]; then
+    # 统计失败服务数量
+    failed_count=$(echo "$failed_services" | wc -l)
+    
+    
+    # 构建通知消息
+    message="发现 $failed_count 个systemd服务启动失败
+请运行 'systemctl --failed' 查看详细信息"
+
+    # 发送桌面通知
+    notify-send -u critical -t 10000 "⚠️ Systemd服务启动失败" "$message"
+    
+    # 同时在终端输出信息（可选）
+    echo "警告：发现 $failed_count 个systemd服务启动失败"
+    echo "失败的服务：$service_names"
+else
+    notify-send "所有systemd服务运行正常"
+fi

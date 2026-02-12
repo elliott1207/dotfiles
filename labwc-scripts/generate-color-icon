@@ -1,0 +1,117 @@
+#!/usr/bin/env python3
+import sys
+import re
+import tempfile
+import os
+import math
+from PIL import Image, ImageDraw
+
+def create_color_circle():
+    try:
+        # 从标准输入读取颜色值
+        color_input = sys.stdin.read().strip()
+        
+        # 验证输入格式
+        if not re.match(r'^#[0-9A-Fa-f]{6}$', color_input):
+            print("错误：输入格式不正确，请使用 #rrggbb 格式", file=sys.stderr)
+            sys.exit(1)
+        
+        # 将#rrggbb格式转换为RGB元组
+        r = int(color_input[1:3], 16)
+        g = int(color_input[3:5], 16)
+        b = int(color_input[5:7], 16)
+        
+        # 计算相反色（补色）：每个颜色通道取反
+        inverse_r = 255 - r
+        inverse_g = 255 - g
+        inverse_b = 255 - b
+        
+        # 原色和相反色
+        original_color = (r, g, b, 255)  # 圆形颜色
+        inverse_color = (inverse_r, inverse_g, inverse_b, 255)  # 圆环颜色
+        
+        # 图像尺寸
+        width, height = 160, 160
+        
+        # 创建透明背景的图像（RGBA模式）
+        image = Image.new('RGBA', (width, height), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(image)
+        
+        # 计算圆心位置
+        center_x, center_y = width // 2, height // 2
+        
+        # 圆形和圆环的半径
+        circle_radius = 60  # 直径120，半径60
+        ring_inner_radius = 60  # 圆环内半径
+        ring_outer_radius = 70  # 圆环外半径，宽度10像素
+        
+        # 圆形的边界框
+        circle_bbox = [
+            center_x - circle_radius,
+            center_y - circle_radius,
+            center_x + circle_radius,
+            center_y + circle_radius
+        ]
+        
+        # 圆环的外边界框
+        ring_outer_bbox = [
+            center_x - ring_outer_radius,
+            center_y - ring_outer_radius,
+            center_x + ring_outer_radius,
+            center_y + ring_outer_radius
+        ]
+        
+        # 先绘制圆环（填充整个大圆）
+        draw.ellipse(ring_outer_bbox, fill=inverse_color)
+        
+        # 再绘制中间的小圆（这会覆盖圆环中间部分，形成透明背景）
+        # 但由于我们需要中心圆形是原色，所以需要特殊处理
+        
+        # 方法：先绘制原色圆形，再绘制圆环
+        # 但是圆环会覆盖圆形边缘，所以需要调整顺序
+        
+        # 重新设计：先绘制圆环，再在原色圆形上绘制覆盖层
+        # 让我们先创建一个单独的图层来绘制圆环
+        
+        # 创建一个临时图像用于圆环
+        ring_image = Image.new('RGBA', (width, height), (0, 0, 0, 0))
+        ring_draw = ImageDraw.Draw(ring_image)
+        
+        # 在临时图像上绘制圆环（大圆减去小圆）
+        # 绘制大圆
+        ring_draw.ellipse(ring_outer_bbox, fill=inverse_color)
+        
+        # 在大圆中间绘制透明小圆，形成圆环
+        # 使用原图像作为掩码
+        mask = Image.new('L', (width, height), 0)
+        mask_draw = ImageDraw.Draw(mask)
+        mask_draw.ellipse(circle_bbox, fill=255)
+        
+        # 将圆环图像应用到原图像
+        image.paste(ring_image, (0, 0), mask)
+        
+        # 现在绘制中心圆形（原色）
+        draw.ellipse(circle_bbox, fill=original_color)
+        
+        # 创建临时文件
+        fd, file_path = tempfile.mkstemp(
+            suffix='.png',
+            prefix='color_circle_ring_',
+            dir='/tmp'
+        )
+        
+        # 关闭文件描述符
+        os.close(fd)
+        
+        # 保存PNG图像
+        image.save(file_path, 'PNG')
+        
+        # 输出文件路径到标准输出
+        print(file_path)
+        
+    except Exception as e:
+        print(f"错误：{str(e)}", file=sys.stderr)
+        sys.exit(1)
+
+if __name__ == "__main__":
+    create_color_circle()

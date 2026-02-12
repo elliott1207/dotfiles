@@ -1,0 +1,10 @@
+#!/bin/bash
+URL="$1"
+FILE_PATH="$2"
+echo "Downloading $URL to $FILE_PATH ..."
+if [[ "$URL" == https://github.com* ]]; then
+    /usr/bin/wget https://cdn.gh-proxy.org/$URL -O $FILE_PATH
+    exit 0
+fi 
+
+/usr/bin/wget --no-check-certificate $URL -O $FILE_PATH
