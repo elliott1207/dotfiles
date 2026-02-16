@@ -2,7 +2,7 @@
 <labwc_configs>
   <keyboard>
     <keybind key="W-f">
-        <action name="Execute" command="pcmanfm"/>
+        <action name="Execute" command="thunar"/>
     </keybind>
     <keybind key="A-space">
       <action name="Execute" command="fuzzel"/>

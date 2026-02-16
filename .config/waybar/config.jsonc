@@ -67,7 +67,8 @@
     },
     "tray": {
         "spacing": 5,
-        "icon-size":20
+        "icon-size":20,
+        "icons": {"org.kde.ktorrent":"/usr/share/icons/breeze/apps/48/org.kde.ktorrent.svg"}
     },
     "niri/workspaces": {
         "format": "{icon}",
