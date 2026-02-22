@@ -9,14 +9,14 @@
 {
   "disable_ai": true,
   "ui_font_size": 16.0,
-  "ui_font_family": "Source Han Sans",
+  "ui_font_family": "Noto Sans",
   "buffer_font_size": 17.0,
   "theme": {
     "mode": "system",
     "light": "Ayu Light",
     "dark": "Dracula",
   },
-  "buffer_font_family": "Source Code Pro",
+  "buffer_font_family": "Noto Sans Mono CJK SC",
   "autosave": {
     "after_delay": { "milliseconds": 100 },
   },

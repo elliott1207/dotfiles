@@ -25,7 +25,7 @@
       <action name="NextWindow"/>
     </keybind>
     <keybind key="W-tab">
-      <action name="Execute" command="sh -c '$TERMINAL'"/>
+      <action name="Execute" command="/opt/labwc-scripts/spawn-kitty"/>
     </keybind>
     <keybind key="W-d">
       <action name="Execute" command="/opt/labwc-scripts/show-desktop"/>

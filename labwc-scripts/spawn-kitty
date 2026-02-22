@@ -1,7 +1,7 @@
 #!/bin/sh
-if wlrctl window find app_id:org.kde.konsole; then
-    wlrctl window focus app_id:org.kde.konsole
+if wlrctl window find app_id:com.mitchellh.ghostty; then
+    wlrctl window focus app_id:com.mitchellh.ghostty
     wlrctl keyboard type t modifiers CTRL,SHIFT
 else
-konsole	
+    ghostty
 fi
